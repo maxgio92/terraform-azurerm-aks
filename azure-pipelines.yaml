@@ -1,6 +1,4 @@
 # Azure pipeline for Terraform AKS module
-pool:
-  vmImage: 'ubuntu-latest'
 
 variables:
   image_name: terraform-azurerm-aks:$(build.buildId)
