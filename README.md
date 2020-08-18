@@ -73,8 +73,6 @@ resource "azurerm_resource_group" "example" {
 module "aks" {
   source              = "Azure/aks/azurerm"
   resource_group_name = azurerm_resource_group.example.name
-  client_id           = "your-service-principal-client-appid"
-  client_secret       = "your-service-principal-client-password"
   prefix              = "prefix"
 }
 ```
@@ -134,8 +132,7 @@ $ export ARM_TEST_LOCATION_ALT="eastus2"
 $ export ARM_TEST_LOCATION_ALT2="westus"
 
 # set aks variables
-$ export TF_VAR_client_id="service-principal-client-id"
-$ export TF_VAR_client_secret="service-principal-client-secret"
+$ export TF_VAR_enable_aad_rbac="true"
 
 # run test
 $ rake build
