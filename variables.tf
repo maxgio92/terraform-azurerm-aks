@@ -61,7 +61,7 @@ variable "enable_aad_rbac" {
 
 variable "kubernetes_version" {
   description = "Version of Kubernetes specified when creating the AKS managed cluster."
-  default     = ""
+  default     = "1.16.13"
 }
 
 variable "subnet_id" {
