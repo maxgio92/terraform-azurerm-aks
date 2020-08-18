@@ -8,10 +8,11 @@ module "ssh-key" {
 }
 
 resource "azurerm_kubernetes_cluster" "main" {
-  name                = "${var.prefix}-aks"
+  name                = var.prefix
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   dns_prefix          = var.prefix
+  kubernetes_version  = var.kubernetes_version
 
   linux_profile {
     admin_username = var.admin_username
@@ -23,15 +24,19 @@ resource "azurerm_kubernetes_cluster" "main" {
   }
 
   default_node_pool {
-    name            = "nodepool"
+    name            = "default"
     node_count      = var.agents_count
     vm_size         = var.agents_size
-    os_disk_size_gb = 50
+    os_disk_size_gb = var.agents_disk_size
+    vnet_subnet_id  = var.subnet_id
   }
 
-  service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+  role_based_access_control {
+    enabled = var.enable_aad_rbac
+  }
+
+  identity {
+    type = "SystemAssigned"
   }
 
   dynamic addon_profile {
@@ -72,5 +77,3 @@ resource "azurerm_log_analytics_solution" "main" {
     product   = "OMSGallery/ContainerInsights"
   }
 }
-
-
