@@ -12,6 +12,8 @@ resource "azurerm_resource_group" "main" {
 
 module network {
   source              = "Azure/network/azurerm"
+  address_space       = "10.251.0.0/16"
+  subnet_prefixes     = ["10.251.0.0/24"]
   resource_group_name = azurerm_resource_group.main.name
 }
 
