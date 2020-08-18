@@ -6,14 +6,6 @@ variable "prefix" {
   description = "The prefix for the resources created in the specified Azure Resource Group"
 }
 
-variable "client_id" {
-  description = "The Client ID (appId) for the Service Principal used for the AKS deployment"
-}
-
-variable "client_secret" {
-  description = "The Client Secret (password) for the Service Principal used for the AKS deployment"
-}
-
 variable "admin_username" {
   default     = "azureuser"
   description = "The username of the local administrator to be created on the Kubernetes cluster"
@@ -22,6 +14,11 @@ variable "admin_username" {
 variable "agents_size" {
   default     = "Standard_D2s_v3"
   description = "The default virtual machine size for the Kubernetes agents"
+}
+
+variable "agents_disk_size" {
+  default     = "30"
+  description = "The default virtual machine boot disk (GB) size for the Kubernetes agents"
 }
 
 variable "log_analytics_workspace_sku" {
@@ -54,4 +51,20 @@ variable "enable_log_analytics_workspace" {
   type        = bool
   description = "Enable the creation of azurerm_log_analytics_workspace and azurerm_log_analytics_solution or not"
   default     = true
+}
+
+variable "enable_aad_rbac" {
+  type        = bool
+  description = "Is Azure AD Role Based Access Control Enabled? Changing this forces a new resource to be created"
+  default     = true
+}
+
+variable "kubernetes_version" {
+  description = "Version of Kubernetes specified when creating the AKS managed cluster."
+  default     = ""
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "The subnet into which deploy the default AKS node pool"
 }
