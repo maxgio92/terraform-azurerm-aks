@@ -6,7 +6,59 @@ This is forked from the official Azure [terraform-azurerm-aks](https://github.co
 
 This Terraform module deploys a Kubernetes cluster on Azure using AKS (Azure Kubernetes Service) and adds support for monitoring with Log Analytics.
 
-## Usage
+# Module spec
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurerm | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| admin\_username | The username of the local administrator to be created on the Kubernetes cluster | `string` | `"azureuser"` | no |
+| agents\_count | The number of Agents that should exist in the Agent Pool | `number` | `2` | no |
+| agents\_disk\_size | The default virtual machine boot disk (GB) size for the Kubernetes agents | `string` | `"30"` | no |
+| agents\_size | The default virtual machine size for the Kubernetes agents | `string` | `"Standard_D2s_v3"` | no |
+| enable\_aad\_rbac | Is Azure AD Role Based Access Control Enabled? Changing this forces a new resource to be created | `bool` | `true` | no |
+| enable\_log\_analytics\_workspace | Enable the creation of azurerm\_log\_analytics\_workspace and azurerm\_log\_analytics\_solution or not | `bool` | `true` | no |
+| kubernetes\_version | Version of Kubernetes specified when creating the AKS managed cluster. | `string` | `""` | no |
+| log\_analytics\_workspace\_sku | The SKU (pricing level) of the Log Analytics workspace. For new subscriptions the SKU should be set to PerGB2018 | `string` | `"PerGB2018"` | no |
+| log\_retention\_in\_days | The retention period for the logs in days | `number` | `30` | no |
+| prefix | The prefix for the resources created in the specified Azure Resource Group | `any` | n/a | yes |
+| public\_ssh\_key | A custom ssh key to control access to the AKS cluster | `string` | `""` | no |
+| resource\_group\_name | The resource group name to be imported | `any` | n/a | yes |
+| subnet\_id | The subnet into which deploy the default AKS node pool | `string` | n/a | yes |
+| tags | Any tags that should be present on the Virtual Network resources | `map(string)` | `{}` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| aks\_id | n/a |
+| client\_certificate | n/a |
+| client\_key | n/a |
+| cluster\_ca\_certificate | n/a |
+| host | n/a |
+| id | n/a |
+| identity | n/a |
+| kube\_config\_raw | n/a |
+| kubelet\_identity | n/a |
+| location | n/a |
+| name | n/a |
+| node\_resource\_group | n/a |
+| password | n/a |
+| username | n/a |
+
+# Usage
 
 ```hcl
 provider "azurerm" {
