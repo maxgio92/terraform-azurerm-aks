@@ -1,5 +1,10 @@
 # Azure pipeline for Terraform AKS module
 
+trigger:
+  branches:
+    include:
+      - master
+
 variables:
   image_name: terraform-azurerm-aks:$(build.buildId)
   terraform_version: 0.12.20
