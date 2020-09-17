@@ -79,7 +79,7 @@ resource "azurerm_log_analytics_solution" "main" {
 }
 
 resource "azurerm_role_assignment" "control_plane" {
-  principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
+  principal_id         = azurerm_kubernetes_cluster.main.identity[0].principal_id
   role_definition_name = "Network Contributor"
   scope                = var.subnet_id
 }
